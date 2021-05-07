@@ -27,31 +27,33 @@ Database design tool: MySQL Workbench.
 The architecture of the projects is designed following the MVC design pattern as follows:
 
 The library project:
-- dto
+- dto:
 the Data Transfer Object package contains a version of the object that allows the object to be transferred through a flux;
 the classes placed in the ‘entities’ package of the server cannot reach the client because of the annotations that mark the classes in that package, which implement the JPA standard;
 the client does not use JPA, as he only consumes the services offered by the server; as such, separate classes are needed that represent the object and describe precisely what it transfers;
 
 The server project:
-- dao
+- dao:
 the Data Access Object package holds the class that contains the direct operations with the database;
 the class receives an EntityManager given as a dependency through the constructor;
-entities
+-entities:
 this package holds the class that describes the object that is to be mapped in the database;
-server
+-entities.enums:
+this package server to describe static attributes;
+-server:
 contains a class that defines the server endpoint, built using as parameters the address and an instance of the class that defines the webservice;
-- ws
+- ws:
 the package contains a class annotated as a @WebService and defines the services that the server exposes for the clients to consume, as methods that return dto objects or receive them as parameters;
-service
+service:
 the service package contains a Singleton class that instantiates an EntityManagerFactory in the constructor and is responsible for implementing the use-cases using working instances of the dto and dao objects;
 
 The client project:
-- client
+- client:
 contains a class that serves the main method;
-- controller
+- controller:
 this package holds a Singleton class containing the methods that the clients can consume;
 the class has an explicit constructor inside of which we declare the url of the contract and the service that is consumed;
-- gui
+- gui:
 the package should contain a Graphic Interface for the users to consume the Create, Update or Delete services exposed by the server;
-- ws
+- ws:
 a package that contains an interface that defines the consumed methods;
